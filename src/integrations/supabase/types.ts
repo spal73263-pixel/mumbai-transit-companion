@@ -50,6 +50,33 @@ export type Database = {
         }
         Relationships: []
       }
+      login_logs: {
+        Row: {
+          display_name: string | null
+          email: string | null
+          id: string
+          ip_address: string | null
+          signed_in_at: string
+          user_id: string
+        }
+        Insert: {
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          ip_address?: string | null
+          signed_in_at?: string
+          user_id: string
+        }
+        Update: {
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          ip_address?: string | null
+          signed_in_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
