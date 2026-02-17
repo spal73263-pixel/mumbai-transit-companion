@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Train, Menu, X, Ticket, Map, LayoutDashboard, Bell, QrCode } from "lucide-react";
+import { Train, Menu, X, Ticket, Map, LayoutDashboard, Bell, QrCode, LogIn, LogOut, UserCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { label: "Live Status", path: "/live", icon: Train },
@@ -14,6 +15,7 @@ const navItems = [
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-xl">
@@ -59,6 +61,23 @@ const Header = () => {
             <Bell className="h-5 w-5" />
             <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-crowd-high" />
           </button>
+          {user ? (
+            <button
+              onClick={() => signOut()}
+              className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            >
+              <LogOut className="h-4 w-4" />
+              Sign Out
+            </button>
+          ) : (
+            <Link
+              to="/auth"
+              className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            >
+              <LogIn className="h-4 w-4" />
+              Sign In
+            </Link>
+          )}
           <button
             className="md:hidden p-2 rounded-md text-muted-foreground hover:bg-muted"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -102,6 +121,24 @@ const Header = () => {
                 <QrCode className="h-4 w-4" />
                 Scan QR
               </Link>
+              {user ? (
+                <button
+                  onClick={() => { signOut(); setMobileOpen(false); }}
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Sign Out
+                </button>
+              ) : (
+                <Link
+                  to="/auth"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted"
+                >
+                  <LogIn className="h-4 w-4" />
+                  Sign In
+                </Link>
+              )}
             </nav>
           </motion.div>
         )}
