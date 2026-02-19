@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { Train, Ticket, Map, BarChart3, QrCode, Shield, ArrowRight, Users, Clock, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import heroImage from "@/assets/hero-mumbai.jpg";
 import Header from "@/components/Header";
 import TrainCard from "@/components/TrainCard";
-import { liveTrains } from "@/lib/mockData";
+import { supabase } from "@/integrations/supabase/client";
+import type { TrainData } from "@/lib/mockData";
 
 const features = [
   { icon: QrCode, title: "QR Digital Tickets", description: "Buy, scan, and manage tickets digitally. No more queues." },
@@ -23,6 +25,37 @@ const stats = [
 ];
 
 const Index = () => {
+  const [liveTrains, setLiveTrains] = useState<TrainData[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("services")
+      .select(`
+        id, service_number, departure_time, arrival_time, type, platform, current_occupancy, max_capacity, crowd_level,
+        stations!services_from_station_id_fkey(name),
+        to_station:stations!services_to_station_id_fkey(name)
+      `)
+      .eq("is_active", true)
+      .order("departure_time")
+      .limit(6)
+      .then(({ data }) => {
+        if (data) {
+          setLiveTrains(data.map((s: any) => ({
+            id: s.id,
+            trainNumber: s.service_number,
+            from: s.stations?.name ?? "",
+            to: s.to_station?.name ?? "",
+            departure: s.departure_time?.slice(0, 5) ?? "--:--",
+            arrival: s.arrival_time?.slice(0, 5) ?? "--:--",
+            crowdLevel: (s.crowd_level as "low" | "medium" | "high") ?? "low",
+            type: s.type as "suburban" | "metro",
+            platform: s.platform ?? "1",
+            occupancy: s.max_capacity ? Math.round((s.current_occupancy / s.max_capacity) * 100) : 0,
+          })));
+        }
+      });
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
