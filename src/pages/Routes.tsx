@@ -3,6 +3,7 @@ import { ArrowRight, Clock, Repeat, Train, Zap, RefreshCw } from "lucide-react";
 import Header from "@/components/Header";
 import StationSelector from "@/components/StationSelector";
 import CrowdIndicator from "@/components/CrowdIndicator";
+import RouteMap from "@/components/RouteMap";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -355,6 +356,11 @@ const Routes = () => {
                       {route.changes} change{route.changes !== 1 ? "s" : ""}
                     </div>
                   </div>
+                </div>
+
+                {/* Route Map */}
+                <div className="rounded-lg bg-muted/50 border border-border mb-3">
+                  <RouteMap segments={route.segments} />
                 </div>
 
                 <div className="flex flex-col gap-2">
