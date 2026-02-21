@@ -6,24 +6,74 @@ import { cn } from "@/lib/utils";
 
 // Mumbai station coordinates
 const STATION_COORDS: Record<string, [number, number]> = {
-  Churchgate:     [18.9352, 72.8278],
+  // Western Line
+  Churchgate:       [18.9352, 72.8278],
+  "Marine Lines":   [18.9440, 72.8234],
+  "Charni Road":    [18.9513, 72.8192],
+  "Grant Road":     [18.9590, 72.8190],
   "Mumbai Central": [18.9692, 72.8198],
-  Dadar:          [19.0176, 72.8428],
-  Bandra:         [19.0544, 72.8403],
-  Andheri:        [19.1197, 72.8464],
-  Borivali:       [19.2288, 72.8570],
-  Virar:          [19.4559, 72.8111],
-  CST:            [18.9398, 72.8355],
-  Kurla:          [19.0726, 72.8793],
-  Ghatkopar:      [19.0860, 72.9080],
-  Thane:          [19.1860, 72.9757],
-  Kalyan:         [19.2437, 73.1355],
-  Wadala:         [19.0178, 72.8688],
-  Panvel:         [18.9930, 73.1175],
-  Versova:        [19.1310, 72.8175],
-  WEH:            [19.1186, 72.8369],
-  "Marol Naka":   [19.1108, 72.8720],
-  "Saki Naka":    [19.1017, 72.8884],
+  "Elphinstone":    [18.9870, 72.8310],
+  "Lower Parel":    [18.9940, 72.8310],
+  Dadar:            [19.0176, 72.8428],
+  "Matunga Road":   [19.0270, 72.8470],
+  "Mahim":          [19.0420, 72.8400],
+  Bandra:           [19.0544, 72.8403],
+  "Khar Road":      [19.0660, 72.8370],
+  "Santacruz":      [19.0820, 72.8390],
+  "Vile Parle":     [19.0980, 72.8430],
+  Andheri:          [19.1197, 72.8464],
+  "Jogeshwari":     [19.1360, 72.8490],
+  "Goregaon":       [19.1550, 72.8490],
+  "Malad":          [19.1870, 72.8480],
+  "Kandivali":      [19.2040, 72.8520],
+  Borivali:         [19.2288, 72.8570],
+  "Dahisar":        [19.2530, 72.8600],
+  "Mira Road":      [19.2810, 72.8680],
+  "Bhayandar":      [19.3010, 72.8510],
+  "Naigaon":        [19.3510, 72.8440],
+  "Vasai Road":     [19.3710, 72.8280],
+  "Nallasopara":    [19.4180, 72.8210],
+  Virar:            [19.4559, 72.8111],
+
+  // Central Line
+  CST:              [18.9398, 72.8355],
+  "Masjid":         [18.9480, 72.8392],
+  "Sandhurst Road": [18.9580, 72.8430],
+  "Byculla":        [18.9770, 72.8340],
+  "Chinchpokli":    [18.9850, 72.8330],
+  "Matunga":        [19.0270, 72.8560],
+  "Sion":           [19.0440, 72.8620],
+  Kurla:            [19.0726, 72.8793],
+  "Vidyavihar":     [19.0790, 72.8910],
+  Ghatkopar:        [19.0860, 72.9080],
+  "Vikhroli":       [19.1060, 72.9270],
+  "Kanjurmarg":     [19.1280, 72.9360],
+  "Bhandup":        [19.1490, 72.9460],
+  "Nahur":          [19.1610, 72.9530],
+  "Mulund":         [19.1730, 72.9560],
+  Thane:            [19.1860, 72.9757],
+  "Dombivli":       [19.2183, 73.0867],
+  Kalyan:           [19.2437, 73.1355],
+
+  // Harbour Line
+  Wadala:           [19.0178, 72.8688],
+  "GTB Nagar":      [19.0300, 72.8740],
+  "Chunabhatti":    [19.0530, 72.8760],
+  "Mankhurd":       [19.0660, 72.9240],
+  "Vashi":          [19.0770, 73.0020],
+  "Nerul":          [19.0330, 73.0180],
+  "Belapur":        [19.0220, 73.0380],
+  "Kharghar":       [19.0430, 73.0660],
+  Panvel:           [18.9930, 73.1175],
+
+  // Metro 1
+  Versova:          [19.1310, 72.8175],
+  WEH:              [19.1186, 72.8369],
+  "Azad Nagar":     [19.1150, 72.8450],
+  "D.N. Nagar":     [19.1260, 72.8310],
+  "Marol Naka":     [19.1108, 72.8720],
+  "Saki Naka":      [19.1017, 72.8884],
+  "Jagruti Nagar":  [19.1020, 72.8980],
 };
 
 const LINE_COLORS: Record<string, string> = {
@@ -52,10 +102,10 @@ interface RouteGeoMapProps {
 
 // Full station lists per line
 const LINE_STOPS: Record<string, string[]> = {
-  Western:   ["Churchgate", "Mumbai Central", "Dadar", "Bandra", "Andheri", "Borivali", "Virar"],
-  Central:   ["CST", "Kurla", "Ghatkopar", "Thane", "Kalyan"],
-  Harbour:   ["CST", "Kurla", "Wadala", "Panvel"],
-  "Metro 1": ["Versova", "WEH", "Marol Naka", "Saki Naka", "Ghatkopar"],
+  Western:   ["Churchgate", "Marine Lines", "Charni Road", "Grant Road", "Mumbai Central", "Elphinstone", "Lower Parel", "Dadar", "Matunga Road", "Mahim", "Bandra", "Khar Road", "Santacruz", "Vile Parle", "Andheri", "Jogeshwari", "Goregaon", "Malad", "Kandivali", "Borivali", "Dahisar", "Mira Road", "Bhayandar", "Naigaon", "Vasai Road", "Nallasopara", "Virar"],
+  Central:   ["CST", "Masjid", "Sandhurst Road", "Byculla", "Chinchpokli", "Dadar", "Matunga", "Sion", "Kurla", "Vidyavihar", "Ghatkopar", "Vikhroli", "Kanjurmarg", "Bhandup", "Nahur", "Mulund", "Thane", "Dombivli", "Kalyan"],
+  Harbour:   ["CST", "Masjid", "Sandhurst Road", "Byculla", "Chinchpokli", "Dadar", "Matunga", "Sion", "Kurla", "Chunabhatti", "GTB Nagar", "Wadala", "Mankhurd", "Vashi", "Nerul", "Belapur", "Kharghar", "Panvel"],
+  "Metro 1": ["Versova", "D.N. Nagar", "Azad Nagar", "WEH", "Marol Naka", "Saki Naka", "Jagruti Nagar", "Ghatkopar"],
 };
 
 function expandSegment(from: string, to: string, line: string): string[] {

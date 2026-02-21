@@ -16,10 +16,10 @@ interface RouteMapProps {
 
 // Full station lists per line — used to expand intermediate stops
 const LINE_STOPS: Record<string, string[]> = {
-  Western:   ["Churchgate", "Mumbai Central", "Dadar", "Bandra", "Andheri", "Borivali", "Virar"],
-  Central:   ["CST", "Kurla", "Ghatkopar", "Thane", "Kalyan"],
-  Harbour:   ["CST", "Kurla", "Wadala", "Panvel"],
-  "Metro 1": ["Versova", "WEH", "Marol Naka", "Saki Naka", "Ghatkopar"],
+  Western:   ["Churchgate", "Marine Lines", "Charni Road", "Grant Road", "Mumbai Central", "Elphinstone", "Lower Parel", "Dadar", "Matunga Road", "Mahim", "Bandra", "Khar Road", "Santacruz", "Vile Parle", "Andheri", "Jogeshwari", "Goregaon", "Malad", "Kandivali", "Borivali", "Dahisar", "Mira Road", "Bhayandar", "Naigaon", "Vasai Road", "Nallasopara", "Virar"],
+  Central:   ["CST", "Masjid", "Sandhurst Road", "Byculla", "Chinchpokli", "Dadar", "Matunga", "Sion", "Kurla", "Vidyavihar", "Ghatkopar", "Vikhroli", "Kanjurmarg", "Bhandup", "Nahur", "Mulund", "Thane", "Dombivli", "Kalyan"],
+  Harbour:   ["CST", "Masjid", "Sandhurst Road", "Byculla", "Chinchpokli", "Dadar", "Matunga", "Sion", "Kurla", "Chunabhatti", "GTB Nagar", "Wadala", "Mankhurd", "Vashi", "Nerul", "Belapur", "Kharghar", "Panvel"],
+  "Metro 1": ["Versova", "D.N. Nagar", "Azad Nagar", "WEH", "Marol Naka", "Saki Naka", "Jagruti Nagar", "Ghatkopar"],
 };
 
 interface StationNode {

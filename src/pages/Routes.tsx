@@ -49,10 +49,10 @@ interface ServiceRow {
 
 // Mumbai railway network topology — adjacency and known routes
 const LINE_ORDER: Record<string, string[]> = {
-  Western:   ["Churchgate", "Mumbai Central", "Dadar", "Bandra", "Andheri", "Borivali", "Virar"],
-  Central:   ["CST", "Kurla", "Ghatkopar", "Thane", "Kalyan"],
-  Harbour:   ["CST", "Kurla", "Wadala", "Panvel"],
-  "Metro 1": ["Versova", "WEH", "Marol Naka", "Saki Naka", "Ghatkopar"],
+  Western:   ["Churchgate", "Marine Lines", "Charni Road", "Grant Road", "Mumbai Central", "Elphinstone", "Lower Parel", "Dadar", "Matunga Road", "Mahim", "Bandra", "Khar Road", "Santacruz", "Vile Parle", "Andheri", "Jogeshwari", "Goregaon", "Malad", "Kandivali", "Borivali", "Dahisar", "Mira Road", "Bhayandar", "Naigaon", "Vasai Road", "Nallasopara", "Virar"],
+  Central:   ["CST", "Masjid", "Sandhurst Road", "Byculla", "Chinchpokli", "Dadar", "Matunga", "Sion", "Kurla", "Vidyavihar", "Ghatkopar", "Vikhroli", "Kanjurmarg", "Bhandup", "Nahur", "Mulund", "Thane", "Dombivli", "Kalyan"],
+  Harbour:   ["CST", "Masjid", "Sandhurst Road", "Byculla", "Chinchpokli", "Dadar", "Matunga", "Sion", "Kurla", "Chunabhatti", "GTB Nagar", "Wadala", "Mankhurd", "Vashi", "Nerul", "Belapur", "Kharghar", "Panvel"],
+  "Metro 1": ["Versova", "D.N. Nagar", "Azad Nagar", "WEH", "Marol Naka", "Saki Naka", "Jagruti Nagar", "Ghatkopar"],
 };
 
 const DURATION_PER_STOP: Record<string, number> = {
@@ -61,11 +61,11 @@ const DURATION_PER_STOP: Record<string, number> = {
 
 // Interchanges: which stations connect which lines
 const INTERCHANGES: Record<string, string[]> = {
-  Dadar:    ["Western", "Central"],
-  Kurla:    ["Central", "Harbour", "Metro 1"],
-  Ghatkopar:["Central", "Metro 1"],
-  CST:      ["Central", "Harbour"],
-  Andheri:  ["Western", "Metro 1"],
+  Dadar:      ["Western", "Central", "Harbour"],
+  Kurla:      ["Central", "Harbour"],
+  Ghatkopar:  ["Central", "Metro 1"],
+  CST:        ["Central", "Harbour"],
+  Andheri:    ["Western", "Metro 1"],
 };
 
 function getStationLine(station: string): string | null {
