@@ -288,6 +288,20 @@ const Routes = () => {
   const stationNames = stations.map(s => s.name);
   const routes = computeRoutes(from, to, serviceMap);
 
+  // Build per-station crowd map from real-time service data
+  const stationCrowdMap: Record<string, "low" | "medium" | "high"> = {};
+  serviceMap.forEach((svc) => {
+    const level = svc.crowd_level as "low" | "medium" | "high";
+    // Assign crowd level to from/to stations (worst wins)
+    [svc.from_name, svc.to_name].forEach(name => {
+      if (!name) return;
+      const existing = stationCrowdMap[name];
+      if (!existing || (level === "high") || (level === "medium" && existing === "low")) {
+        stationCrowdMap[name] = level;
+      }
+    });
+  });
+
   const crowdColor = (level: "low" | "medium" | "high") =>
     level === "high" ? "text-crowd-high" : level === "medium" ? "text-crowd-medium" : "text-crowd-low";
 
@@ -360,7 +374,7 @@ const Routes = () => {
 
                 {/* Route Map */}
                 <div className="rounded-lg bg-muted/50 border border-border mb-3">
-                  <RouteMap segments={route.segments} />
+                  <RouteMap segments={route.segments} stationCrowdMap={stationCrowdMap} />
                 </div>
 
                 <div className="flex flex-col gap-2">

@@ -10,6 +10,8 @@ interface RouteMapProps {
     line: string;
     crowdLevel: "low" | "medium" | "high";
   }[];
+  /** Per-station crowd level from real-time DB data */
+  stationCrowdMap?: Record<string, "low" | "medium" | "high">;
 }
 
 // Full station lists per line — used to expand intermediate stops
@@ -77,7 +79,7 @@ function lineColor(type: "suburban" | "metro") {
   return type === "metro" ? "bg-metro" : "bg-rail";
 }
 
-const RouteMap = ({ segments }: RouteMapProps) => {
+const RouteMap = ({ segments, stationCrowdMap }: RouteMapProps) => {
   const stations = buildStationList(segments);
   if (stations.length < 2) return null;
 
@@ -86,23 +88,37 @@ const RouteMap = ({ segments }: RouteMapProps) => {
       <div className="flex items-center min-w-max">
         {stations.map((station, i) => {
           const isMain = station.isFirst || station.isLast || station.isInterchange;
+          // Use real-time crowd data if available, otherwise fall back to segment crowd
+          const liveCrowd = stationCrowdMap?.[station.name] ?? station.crowdLevel;
 
           return (
             <div key={`${station.name}-${i}`} className="flex items-center">
               {/* Station dot */}
               <div className="flex flex-col items-center relative">
+                {/* Live crowd ring around station dot */}
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: i * 0.08, type: "spring", stiffness: 300 }}
                   className={cn(
-                    "relative z-10 rounded-full border-2 border-card flex items-center justify-center",
-                    isMain ? "w-7 h-7" : "w-3.5 h-3.5",
+                    "relative z-10 rounded-full flex items-center justify-center",
+                    isMain ? "w-8 h-8" : "w-4 h-4",
+                    // Outer ring = live crowd color
+                    liveCrowd === "high" ? "ring-2 ring-crowd-high" : liveCrowd === "medium" ? "ring-2 ring-crowd-medium" : "ring-2 ring-crowd-low",
                     lineColor(station.type)
                   )}
                 >
                   {isMain && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-card" />
+                    <div className={cn(
+                      "w-3 h-3 rounded-full animate-pulse-glow",
+                      crowdBg(liveCrowd)
+                    )} />
+                  )}
+                  {!isMain && (
+                    <div className={cn(
+                      "w-1.5 h-1.5 rounded-full",
+                      crowdBg(liveCrowd)
+                    )} />
                   )}
                 </motion.div>
                 <motion.p
@@ -118,6 +134,15 @@ const RouteMap = ({ segments }: RouteMapProps) => {
                 >
                   {station.name}
                 </motion.p>
+                {/* Live crowd label for main stations */}
+                {isMain && stationCrowdMap?.[station.name] && (
+                  <span className={cn(
+                    "text-[7px] font-bold mt-0.5 uppercase",
+                    liveCrowd === "high" ? "text-crowd-high" : liveCrowd === "medium" ? "text-crowd-medium" : "text-crowd-low"
+                  )}>
+                    {liveCrowd === "high" ? "🔴" : liveCrowd === "medium" ? "🟡" : "🟢"} {liveCrowd}
+                  </span>
+                )}
                 {station.isInterchange && (
                   <span className="text-[8px] text-accent font-bold mt-0.5">⇌ CHANGE</span>
                 )}
@@ -138,7 +163,7 @@ const RouteMap = ({ segments }: RouteMapProps) => {
                     style={{ originX: 0 }}
                     className={cn(
                       "absolute inset-0 h-1 rounded-full",
-                      crowdBg(station.crowdLevel)
+                      crowdBg(liveCrowd)
                     )}
                   />
                   {/* Animated train only on first connector */}
