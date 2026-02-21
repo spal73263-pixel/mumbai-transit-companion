@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import StationSelector from "@/components/StationSelector";
 import CrowdIndicator from "@/components/CrowdIndicator";
 import RouteMap from "@/components/RouteMap";
+import RouteGeoMap from "@/components/RouteGeoMap";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -372,9 +373,14 @@ const Routes = () => {
                   </div>
                 </div>
 
-                {/* Route Map */}
+                {/* Schematic Route Map */}
                 <div className="rounded-lg bg-muted/50 border border-border mb-3">
                   <RouteMap segments={route.segments} stationCrowdMap={stationCrowdMap} />
+                </div>
+
+                {/* Geographic Map */}
+                <div className="mb-3">
+                  <RouteGeoMap segments={route.segments} stationCrowdMap={stationCrowdMap} />
                 </div>
 
                 <div className="flex flex-col gap-2">
