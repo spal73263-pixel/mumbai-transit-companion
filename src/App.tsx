@@ -13,6 +13,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ScanQR from "./pages/ScanQR";
 import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
+import SOS from "./pages/SOS";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/routes" element={<RoutesPage />} />
+            <Route path="/sos" element={<SOS />} />
             <Route
               path="/tickets"
               element={
