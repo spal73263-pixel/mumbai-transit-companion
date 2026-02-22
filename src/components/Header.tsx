@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Train, Menu, X, Ticket, Map, LayoutDashboard, Bell, QrCode, LogIn, LogOut, UserCircle } from "lucide-react";
+import { Train, Menu, X, Ticket, Map, LayoutDashboard, Bell, QrCode, LogIn, LogOut, UserCircle, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
@@ -9,6 +9,7 @@ const navItems = [
   { label: "Live Status", path: "/live", icon: Train },
   { label: "Tickets", path: "/tickets", icon: Ticket },
   { label: "Routes", path: "/routes", icon: Map },
+  { label: "SOS", path: "/sos", icon: AlertTriangle },
   { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
 ];
 
