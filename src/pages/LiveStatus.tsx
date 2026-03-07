@@ -159,6 +159,20 @@ const LiveStatus = () => {
           </button>
         </div>
 
+        {/* Live GPS Train Tracker Map */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-3">
+            <Map className="h-4 w-4 text-accent" />
+            <h2 className="font-display font-semibold text-lg text-foreground">Live Train Tracker</h2>
+            <span className="text-xs text-muted-foreground ml-1">• GPS positions update every 3s</span>
+            <span className="relative flex h-2.5 w-2.5 ml-1">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-crowd-low opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-crowd-low"></span>
+            </span>
+          </div>
+          <LiveTrainTracker />
+        </div>
+
         {/* Station filter + Quick Book */}
         <div className="rounded-lg border border-border bg-card p-5 shadow-card mb-6">
           <div className="flex items-center gap-2 mb-3">
