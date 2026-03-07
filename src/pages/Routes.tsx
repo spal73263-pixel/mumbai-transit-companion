@@ -62,11 +62,17 @@ const DURATION_PER_STOP: Record<string, number> = {
 
 // Interchanges: which stations connect which lines
 const INTERCHANGES: Record<string, string[]> = {
-  Dadar:      ["Western", "Central", "Harbour"],
-  Kurla:      ["Central", "Harbour"],
-  Ghatkopar:  ["Central", "Metro 1"],
-  CST:        ["Central", "Harbour"],
-  Andheri:    ["Western", "Metro 1"],
+  "Dadar": ["Western"],
+  "Dadar Central": ["Central"],
+  Kurla: ["Central", "Harbour"],
+  Ghatkopar: ["Central"],
+  "Ghatkopar Metro": ["Metro 1"],
+  CST: ["Central", "Harbour"],
+  Andheri: ["Western"],
+  "Andheri Metro": ["Metro 1"],
+  Thane: ["Central", "Trans-Harbour"],
+  Vashi: ["Harbour", "Trans-Harbour"],
+  Turbhe: ["Harbour", "Trans-Harbour"],
 };
 
 function getStationLine(station: string): string | null {

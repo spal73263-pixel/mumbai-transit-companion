@@ -1,9 +1,29 @@
 export type CrowdLevel = "low" | "medium" | "high";
 
 export const stations = [
-  "Churchgate", "Mumbai Central", "Dadar", "Bandra", "Andheri", 
-  "Borivali", "Virar", "Thane", "Kalyan", "CST", "Kurla",
-  "Ghatkopar", "Panvel", "Navi Mumbai", "Wadala"
+  // Western Line
+  "Churchgate", "Marine Lines", "Charni Road", "Grant Road", "Mumbai Central",
+  "Mahalaxmi", "Lower Parel", "Elphinstone Road", "Dadar", "Matunga Road",
+  "Mahim", "Bandra", "Khar Road", "Santacruz", "Vile Parle", "Andheri",
+  "Jogeshwari", "Goregaon", "Ram Mandir", "Malad", "Kandivali", "Borivali",
+  "Dahisar", "Mira Road", "Bhayandar", "Naigaon", "Vasai Road", "Nallasopara", "Virar",
+  // Central Line
+  "CST", "Masjid", "Sandhurst Road", "Byculla", "Chinchpokli", "Parel",
+  "Dadar Central", "Matunga", "Sion", "Kurla", "Vidyavihar", "Ghatkopar",
+  "Vikhroli", "Kanjurmarg", "Bhandup", "Nahur", "Mulund", "Thane",
+  "Dombivli", "Kalyan", "Ulhasnagar", "Vithalwadi", "Ambernath", "Badlapur",
+  "Titwala", "Asangaon", "Kasara", "Karjat", "Khopoli",
+  // Harbour Line
+  "Wadala", "Cotton Green", "Sewri", "Dockyard Road", "Reay Road",
+  "Kings Circle", "Mahim Junction", "GTB Nagar", "Chunabhatti", "Tilak Nagar",
+  "Chembur", "Govandi", "Mankhurd", "Vashi", "Sanpada", "Turbhe",
+  "Juinagar", "Nerul", "Seawoods Darave", "Belapur", "Kharghar",
+  "Mansarovar", "Khandeshwar", "Panvel",
+  // Trans-Harbour Line
+  "Airoli", "Rabale", "Ghansoli", "Kopar Khairane",
+  // Metro 1
+  "Versova", "Andheri Metro", "WEH", "Chakala", "Airport Road",
+  "Marol Naka", "Saki Naka", "Asalpha", "Jagruti Nagar", "Ghatkopar Metro",
 ];
 
 export const metroStations = [
