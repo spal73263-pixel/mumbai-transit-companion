@@ -174,6 +174,11 @@ const LiveStatus = () => {
           <LiveTrainTracker />
         </div>
 
+        {/* Train Approach Notifications */}
+        <div className="mb-6">
+          <TrainApproachNotifier />
+        </div>
+
         {/* Station filter + Quick Book */}
         <div className="rounded-lg border border-border bg-card p-5 shadow-card mb-6">
           <div className="flex items-center gap-2 mb-3">
