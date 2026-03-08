@@ -107,8 +107,7 @@ const TrainApproachNotifier = () => {
         body,
         icon: "/favicon.ico",
         tag: key,
-        vibrate: [200, 100, 200],
-      });
+      } as NotificationOptions);
     }
 
     // Play sound
