@@ -54,7 +54,7 @@ const TrainCard = ({
         <CrowdIndicator level={crowdLevel} size="sm" />
       </div>
 
-      <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center gap-3 mb-1">
         <div className="text-center">
           <p className="font-display font-bold text-lg text-card-foreground">{departure}</p>
           <p className="text-xs text-muted-foreground">{from}</p>
@@ -69,6 +69,16 @@ const TrainCard = ({
           <p className="text-xs text-muted-foreground">{to}</p>
         </div>
       </div>
+
+      {/* M-Indicator style train position strip */}
+      <TrainPositionStrip
+        from={from}
+        to={to}
+        departure={departure}
+        arrival={arrival}
+        crowdLevel={crowdLevel}
+        type={type}
+      />
 
       <div className="flex items-center justify-between text-xs text-muted-foreground">
         <div className="flex items-center gap-1">
