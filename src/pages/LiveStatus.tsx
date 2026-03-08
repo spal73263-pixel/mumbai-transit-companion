@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Filter, RefreshCw, MapPin, QrCode, CreditCard, Check, Map } from "lucide-react";
+import { Filter, RefreshCw, MapPin, QrCode, CreditCard, Check, Map, Bell } from "lucide-react";
 import LiveTrainTracker from "@/components/LiveTrainTracker";
+import TrainApproachNotifier from "@/components/TrainApproachNotifier";
 import Header from "@/components/Header";
 import TrainCard from "@/components/TrainCard";
 import StationSelector from "@/components/StationSelector";
@@ -171,6 +172,11 @@ const LiveStatus = () => {
             </span>
           </div>
           <LiveTrainTracker />
+        </div>
+
+        {/* Train Approach Notifications */}
+        <div className="mb-6">
+          <TrainApproachNotifier />
         </div>
 
         {/* Station filter + Quick Book */}
