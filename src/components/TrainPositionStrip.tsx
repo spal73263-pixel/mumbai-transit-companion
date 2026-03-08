@@ -69,8 +69,20 @@ const TrainPositionStrip = ({ from, to, departure, arrival, crowdLevel, type }: 
   const currentStopIdx = Math.floor(progress * (stops.length - 1));
   const segmentProgress = (progress * (stops.length - 1)) - currentStopIdx;
 
-  // Show max ~8 station labels to avoid clutter, but all dots
-  const showLabels = stops.length <= 8;
+  // Always show up to 8 station labels (terminals + evenly spaced)
+  const labelsToShow = useMemo(() => {
+    const maxLabels = 8;
+    if (stops.length <= maxLabels) return new Set(stops.map((_, i) => i));
+    const indices = new Set<number>([0, stops.length - 1]);
+    // Add current stop
+    indices.add(currentStopIdx);
+    // Fill remaining with evenly spaced
+    const step = (stops.length - 1) / (maxLabels - 1);
+    for (let i = 1; i < maxLabels - 1 && indices.size < maxLabels; i++) {
+      indices.add(Math.round(i * step));
+    }
+    return indices;
+  }, [stops, currentStopIdx]);
 
   const lineColor = type === "metro" ? "hsl(var(--metro))" : "hsl(var(--rail))";
   const crowdColor = crowdLevel === "high" ? "hsl(var(--crowd-high))" : crowdLevel === "medium" ? "hsl(var(--crowd-medium))" : "hsl(var(--crowd-low))";
