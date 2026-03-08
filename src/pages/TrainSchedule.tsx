@@ -623,6 +623,53 @@ const TrainSchedule = () => {
                   ))}
                 </div>
               )}
+
+              {/* Emergency Contacts for source station */}
+              {sourceStation && EMERGENCY_CONTACTS[sourceStation] && (
+                <div className="mt-6 rounded-xl border border-destructive/20 bg-destructive/5 p-4">
+                  <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-destructive" />
+                    Emergency at {sourceStation}
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <a
+                      href={`tel:${EMERGENCY_CONTACTS[sourceStation].police.number.replace(/-/g, "")}`}
+                      className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-3 shadow-sm hover:shadow-md active:scale-95 transition-all"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                        <Shield className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      </div>
+                      <span className="text-[10px] text-muted-foreground text-center leading-tight">
+                        {EMERGENCY_CONTACTS[sourceStation].police.name}
+                      </span>
+                      <span className="font-display font-bold text-sm text-foreground">
+                        {EMERGENCY_CONTACTS[sourceStation].police.number}
+                      </span>
+                      <span className="text-[10px] font-medium text-blue-600 dark:text-blue-400">Tap to Call</span>
+                    </a>
+                    <a
+                      href={`tel:${EMERGENCY_CONTACTS[sourceStation].ambulance.number.replace(/-/g, "")}`}
+                      className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-3 shadow-sm hover:shadow-md active:scale-95 transition-all"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center">
+                        <Phone className="h-5 w-5 text-red-600 dark:text-red-400" />
+                      </div>
+                      <span className="text-[10px] text-muted-foreground text-center leading-tight">
+                        {EMERGENCY_CONTACTS[sourceStation].ambulance.name}
+                      </span>
+                      <span className="font-display font-bold text-sm text-foreground">
+                        {EMERGENCY_CONTACTS[sourceStation].ambulance.number}
+                      </span>
+                      <span className="text-[10px] font-medium text-red-600 dark:text-red-400">Tap to Call</span>
+                    </a>
+                  </div>
+                  <div className="flex justify-center gap-4 mt-3">
+                    <a href="tel:100" className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">Police 100</a>
+                    <a href="tel:108" className="text-xs font-semibold text-red-600 dark:text-red-400 hover:underline">Ambulance 108</a>
+                    <a href="tel:139" className="text-xs font-semibold text-accent hover:underline">Railway 139</a>
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
