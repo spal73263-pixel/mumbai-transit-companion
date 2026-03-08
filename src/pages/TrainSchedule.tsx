@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { MapPin, Navigation, Train, ArrowRight, Clock, ChevronLeft, Loader2, AlertCircle, Users } from "lucide-react";
+import { MapPin, Navigation, Train, ArrowRight, Clock, ChevronLeft, Loader2, AlertCircle, Users, Shield, Phone } from "lucide-react";
 import Header from "@/components/Header";
 import TrainPositionStrip from "@/components/TrainPositionStrip";
 import CrowdIndicator from "@/components/CrowdIndicator";
@@ -102,6 +102,93 @@ function findNearestStation(lat: number, lng: number, lineStations: string[]): {
   }
   return nearest;
 }
+
+// Emergency contacts per station
+const EMERGENCY_CONTACTS: Record<string, { police: { name: string; number: string }; ambulance: { name: string; number: string } }> = {
+  "Churchgate": { police: { name: "Marine Drive Police Stn", number: "022-22821478" }, ambulance: { name: "GT Hospital", number: "022-22621242" } },
+  "Marine Lines": { police: { name: "Marine Lines GRP", number: "022-22070757" }, ambulance: { name: "GT Hospital", number: "022-22621242" } },
+  "Charni Road": { police: { name: "V.P. Road Police Stn", number: "022-23863636" }, ambulance: { name: "Nair Hospital", number: "022-23027100" } },
+  "Grant Road": { police: { name: "Grant Road GRP", number: "022-23095757" }, ambulance: { name: "Nair Hospital", number: "022-23027100" } },
+  "Mumbai Central": { police: { name: "Mumbai Central GRP", number: "022-23021234" }, ambulance: { name: "Nair Hospital", number: "022-23027100" } },
+  "Mahalaxmi": { police: { name: "Lower Parel GRP", number: "022-24934444" }, ambulance: { name: "KEM Hospital", number: "022-24136051" } },
+  "Lower Parel": { police: { name: "Lower Parel GRP", number: "022-24934444" }, ambulance: { name: "KEM Hospital", number: "022-24136051" } },
+  "Elphinstone Road": { police: { name: "Lower Parel GRP", number: "022-24934444" }, ambulance: { name: "KEM Hospital", number: "022-24136051" } },
+  "Dadar": { police: { name: "Dadar GRP", number: "022-24131553" }, ambulance: { name: "KEM Hospital", number: "022-24136051" } },
+  "Matunga Road": { police: { name: "Matunga GRP", number: "022-24143636" }, ambulance: { name: "KEM Hospital", number: "022-24136051" } },
+  "Mahim": { police: { name: "Mahim Police Stn", number: "022-24441010" }, ambulance: { name: "Bhabha Hospital", number: "022-26422434" } },
+  "Bandra": { police: { name: "Bandra GRP", number: "022-26401011" }, ambulance: { name: "Bhabha Hospital", number: "022-26422434" } },
+  "Khar Road": { police: { name: "Khar Police Stn", number: "022-26482222" }, ambulance: { name: "Bhabha Hospital", number: "022-26422434" } },
+  "Santacruz": { police: { name: "Santacruz GRP", number: "022-26492222" }, ambulance: { name: "V.N. Desai Hospital", number: "022-26149888" } },
+  "Vile Parle": { police: { name: "Vile Parle GRP", number: "022-26104040" }, ambulance: { name: "Cooper Hospital", number: "022-26207254" } },
+  "Andheri": { police: { name: "Andheri GRP", number: "022-26284040" }, ambulance: { name: "Cooper Hospital", number: "022-26207254" } },
+  "Jogeshwari": { police: { name: "Jogeshwari GRP", number: "022-26781234" }, ambulance: { name: "Cooper Hospital", number: "022-26207254" } },
+  "Goregaon": { police: { name: "Goregaon GRP", number: "022-28721010" }, ambulance: { name: "ESIC Hospital", number: "022-28722222" } },
+  "Ram Mandir": { police: { name: "Goregaon GRP", number: "022-28721010" }, ambulance: { name: "ESIC Hospital", number: "022-28722222" } },
+  "Malad": { police: { name: "Malad GRP", number: "022-28821010" }, ambulance: { name: "Bhagwati Hospital", number: "022-28922424" } },
+  "Kandivali": { police: { name: "Kandivali GRP", number: "022-28671234" }, ambulance: { name: "Bhagwati Hospital", number: "022-28922424" } },
+  "Borivali": { police: { name: "Borivali GRP", number: "022-28932222" }, ambulance: { name: "Bhagwati Hospital", number: "022-28922424" } },
+  "Dahisar": { police: { name: "Dahisar GRP", number: "022-28981010" }, ambulance: { name: "Bhagwati Hospital", number: "022-28922424" } },
+  "Mira Road": { police: { name: "Mira Road GRP", number: "022-28112222" }, ambulance: { name: "Wockhardt Hospital", number: "022-28555555" } },
+  "Bhayandar": { police: { name: "Bhayandar GRP", number: "022-28041010" }, ambulance: { name: "Bhayandar Hospital", number: "022-28041234" } },
+  "Naigaon": { police: { name: "Naigaon GRP", number: "0250-2321234" }, ambulance: { name: "Vasai Civil Hospital", number: "0250-2332222" } },
+  "Vasai Road": { police: { name: "Vasai Road GRP", number: "0250-2333333" }, ambulance: { name: "Vasai Civil Hospital", number: "0250-2332222" } },
+  "Nallasopara": { police: { name: "Nallasopara GRP", number: "0250-2411010" }, ambulance: { name: "Nalasopara PHC", number: "0250-2421234" } },
+  "Virar": { police: { name: "Virar GRP", number: "0250-2525252" }, ambulance: { name: "Virar Civil Hospital", number: "0250-2502502" } },
+  "CST": { police: { name: "CST GRP", number: "022-22624040" }, ambulance: { name: "St. George Hospital", number: "022-22620242" } },
+  "Masjid": { police: { name: "Masjid GRP", number: "022-23471010" }, ambulance: { name: "St. George Hospital", number: "022-22620242" } },
+  "Sandhurst Road": { police: { name: "Sandhurst Rd GRP", number: "022-23783636" }, ambulance: { name: "St. George Hospital", number: "022-22620242" } },
+  "Byculla": { police: { name: "Byculla GRP", number: "022-23714545" }, ambulance: { name: "JJ Hospital", number: "022-23735555" } },
+  "Chinchpokli": { police: { name: "Chinchpokli GRP", number: "022-23074040" }, ambulance: { name: "JJ Hospital", number: "022-23735555" } },
+  "Parel": { police: { name: "Parel GRP", number: "022-24131553" }, ambulance: { name: "KEM Hospital", number: "022-24136051" } },
+  "Dadar Central": { police: { name: "Dadar GRP", number: "022-24131553" }, ambulance: { name: "KEM Hospital", number: "022-24136051" } },
+  "Matunga": { police: { name: "Matunga GRP", number: "022-24143636" }, ambulance: { name: "KEM Hospital", number: "022-24136051" } },
+  "Sion": { police: { name: "Sion GRP", number: "022-24071010" }, ambulance: { name: "Lokmanya Tilak Hospital", number: "022-24063636" } },
+  "Kurla": { police: { name: "Kurla GRP", number: "022-26501010" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+  "Vidyavihar": { police: { name: "Vidyavihar GRP", number: "022-25091234" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+  "Ghatkopar": { police: { name: "Ghatkopar GRP", number: "022-25012345" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+  "Vikhroli": { police: { name: "Vikhroli GRP", number: "022-25771010" }, ambulance: { name: "Godrej Memorial Hospital", number: "022-25771234" } },
+  "Kanjurmarg": { police: { name: "Kanjurmarg GRP", number: "022-25781010" }, ambulance: { name: "Godrej Memorial Hospital", number: "022-25771234" } },
+  "Bhandup": { police: { name: "Bhandup GRP", number: "022-25941010" }, ambulance: { name: "MT Agarwal Hospital", number: "022-25961234" } },
+  "Nahur": { police: { name: "Nahur GRP", number: "022-25671010" }, ambulance: { name: "MT Agarwal Hospital", number: "022-25961234" } },
+  "Mulund": { police: { name: "Mulund GRP", number: "022-25631010" }, ambulance: { name: "Fortis Hospital Mulund", number: "022-25994000" } },
+  "Thane": { police: { name: "Thane GRP", number: "022-25341111" }, ambulance: { name: "Thane Civil Hospital", number: "022-25360444" } },
+  "Dombivli": { police: { name: "Dombivli GRP", number: "0251-2441010" }, ambulance: { name: "Shastri Nagar Hospital", number: "0251-2451234" } },
+  "Kalyan": { police: { name: "Kalyan GRP", number: "0251-2313131" }, ambulance: { name: "Kalyan Civil Hospital", number: "0251-2210299" } },
+  "Dockyard Road": { police: { name: "Dockyard Rd GRP", number: "022-23783636" }, ambulance: { name: "St. George Hospital", number: "022-22620242" } },
+  "Reay Road": { police: { name: "Reay Road GRP", number: "022-23783636" }, ambulance: { name: "St. George Hospital", number: "022-22620242" } },
+  "Cotton Green": { police: { name: "Cotton Green GRP", number: "022-23783636" }, ambulance: { name: "LTMG Hospital", number: "022-24063636" } },
+  "Sewri": { police: { name: "Sewri GRP", number: "022-24131010" }, ambulance: { name: "LTMG Hospital", number: "022-24063636" } },
+  "Wadala": { police: { name: "Wadala GRP", number: "022-24131010" }, ambulance: { name: "LTMG Hospital", number: "022-24063636" } },
+  "Kings Circle": { police: { name: "Kings Circle GRP", number: "022-24131010" }, ambulance: { name: "LTMG Hospital", number: "022-24063636" } },
+  "Mahim Junction": { police: { name: "Mahim GRP", number: "022-24441010" }, ambulance: { name: "Bhabha Hospital", number: "022-26422434" } },
+  "GTB Nagar": { police: { name: "GTB Nagar GRP", number: "022-25231010" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+  "Chunabhatti": { police: { name: "Chunabhatti GRP", number: "022-25221010" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+  "Tilak Nagar": { police: { name: "Tilak Nagar GRP", number: "022-25221010" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+  "Chembur": { police: { name: "Chembur GRP", number: "022-25221010" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+  "Govandi": { police: { name: "Govandi GRP", number: "022-25561010" }, ambulance: { name: "Urban Health Centre", number: "022-25561234" } },
+  "Mankhurd": { police: { name: "Mankhurd GRP", number: "022-25561010" }, ambulance: { name: "Urban Health Centre", number: "022-25561234" } },
+  "Vashi": { police: { name: "Vashi Police Stn", number: "022-27892222" }, ambulance: { name: "NMMC Hospital", number: "022-27823056" } },
+  "Sanpada": { police: { name: "Vashi Police Stn", number: "022-27892222" }, ambulance: { name: "NMMC Hospital", number: "022-27823056" } },
+  "Turbhe": { police: { name: "Turbhe Police Stn", number: "022-27892222" }, ambulance: { name: "NMMC Hospital", number: "022-27823056" } },
+  "Juinagar": { police: { name: "Nerul Police Stn", number: "022-27712222" }, ambulance: { name: "DY Patil Hospital", number: "022-27711234" } },
+  "Nerul": { police: { name: "Nerul Police Stn", number: "022-27712222" }, ambulance: { name: "DY Patil Hospital", number: "022-27711234" } },
+  "Seawoods Darave": { police: { name: "Nerul Police Stn", number: "022-27712222" }, ambulance: { name: "DY Patil Hospital", number: "022-27711234" } },
+  "Belapur": { police: { name: "CBD Belapur Police", number: "022-27571010" }, ambulance: { name: "MGM Hospital", number: "022-27561234" } },
+  "Kharghar": { police: { name: "Kharghar Police Stn", number: "022-27741010" }, ambulance: { name: "Kharghar PHC", number: "022-27741234" } },
+  "Mansarovar": { police: { name: "Kharghar Police Stn", number: "022-27741010" }, ambulance: { name: "Kharghar PHC", number: "022-27741234" } },
+  "Khandeshwar": { police: { name: "Panvel GRP", number: "022-27451010" }, ambulance: { name: "Panvel Hospital", number: "022-27452222" } },
+  "Panvel": { police: { name: "Panvel GRP", number: "022-27451010" }, ambulance: { name: "Panvel Hospital", number: "022-27452222" } },
+  "Versova": { police: { name: "Versova Police Stn", number: "022-26312222" }, ambulance: { name: "Cooper Hospital", number: "022-26207254" } },
+  "Andheri Metro": { police: { name: "Andheri GRP", number: "022-26284040" }, ambulance: { name: "Cooper Hospital", number: "022-26207254" } },
+  "WEH": { police: { name: "Andheri GRP", number: "022-26284040" }, ambulance: { name: "Cooper Hospital", number: "022-26207254" } },
+  "Chakala": { police: { name: "Andheri GRP", number: "022-26284040" }, ambulance: { name: "Cooper Hospital", number: "022-26207254" } },
+  "Airport Road": { police: { name: "Sahar Police Stn", number: "022-26156565" }, ambulance: { name: "Seven Hills Hospital", number: "022-67676767" } },
+  "Marol Naka": { police: { name: "MIDC Police Stn", number: "022-28361010" }, ambulance: { name: "Seven Hills Hospital", number: "022-67676767" } },
+  "Saki Naka": { police: { name: "Saki Naka Police Stn", number: "022-28511010" }, ambulance: { name: "Seven Hills Hospital", number: "022-67676767" } },
+  "Asalpha": { police: { name: "Ghatkopar GRP", number: "022-25012345" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+  "Jagruti Nagar": { police: { name: "Jagruti Nagar Security", number: "022-25021010" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+  "Ghatkopar Metro": { police: { name: "Ghatkopar GRP", number: "022-25012345" }, ambulance: { name: "Rajawadi Hospital", number: "022-25220708" } },
+};
 
 const TrainSchedule = () => {
   const [step, setStep] = useState<Step>("line");
@@ -534,6 +621,53 @@ const TrainSchedule = () => {
                       </div>
                     </motion.div>
                   ))}
+                </div>
+              )}
+
+              {/* Emergency Contacts for source station */}
+              {sourceStation && EMERGENCY_CONTACTS[sourceStation] && (
+                <div className="mt-6 rounded-xl border border-destructive/20 bg-destructive/5 p-4">
+                  <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-destructive" />
+                    Emergency at {sourceStation}
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <a
+                      href={`tel:${EMERGENCY_CONTACTS[sourceStation].police.number.replace(/-/g, "")}`}
+                      className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-3 shadow-sm hover:shadow-md active:scale-95 transition-all"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                        <Shield className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      </div>
+                      <span className="text-[10px] text-muted-foreground text-center leading-tight">
+                        {EMERGENCY_CONTACTS[sourceStation].police.name}
+                      </span>
+                      <span className="font-display font-bold text-sm text-foreground">
+                        {EMERGENCY_CONTACTS[sourceStation].police.number}
+                      </span>
+                      <span className="text-[10px] font-medium text-blue-600 dark:text-blue-400">Tap to Call</span>
+                    </a>
+                    <a
+                      href={`tel:${EMERGENCY_CONTACTS[sourceStation].ambulance.number.replace(/-/g, "")}`}
+                      className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-3 shadow-sm hover:shadow-md active:scale-95 transition-all"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center">
+                        <Phone className="h-5 w-5 text-red-600 dark:text-red-400" />
+                      </div>
+                      <span className="text-[10px] text-muted-foreground text-center leading-tight">
+                        {EMERGENCY_CONTACTS[sourceStation].ambulance.name}
+                      </span>
+                      <span className="font-display font-bold text-sm text-foreground">
+                        {EMERGENCY_CONTACTS[sourceStation].ambulance.number}
+                      </span>
+                      <span className="text-[10px] font-medium text-red-600 dark:text-red-400">Tap to Call</span>
+                    </a>
+                  </div>
+                  <div className="flex justify-center gap-4 mt-3">
+                    <a href="tel:100" className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">Police 100</a>
+                    <a href="tel:108" className="text-xs font-semibold text-red-600 dark:text-red-400 hover:underline">Ambulance 108</a>
+                    <a href="tel:139" className="text-xs font-semibold text-accent hover:underline">Railway 139</a>
+                  </div>
                 </div>
               )}
             </motion.div>
