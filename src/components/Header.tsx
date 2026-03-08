@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Train, Menu, X, Ticket, Map, LayoutDashboard, Bell, QrCode, LogIn, LogOut, UserCircle, AlertTriangle } from "lucide-react";
+import { Train, Menu, X, Ticket, Map, LayoutDashboard, Bell, QrCode, LogIn, LogOut, UserCircle, AlertTriangle, CalendarClock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
