@@ -131,7 +131,7 @@ const TrainPositionStrip = ({ from, to, departure, arrival, crowdLevel, type }: 
                 />
 
                 {/* Station name - show for terminals, current, and if few stops */}
-                {(isTerminal || (showLabels && stops.length <= 12) || isCurrent) && (
+                {(labelsToShow.has(i)) && (
                   <span
                     className={cn(
                       "text-[8px] leading-tight mt-1 text-center max-w-[48px] truncate",
