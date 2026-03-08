@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { MapPin, Navigation, Train, ArrowRight, Clock, ChevronLeft, Loader2, AlertCircle, Users } from "lucide-react";
+import { MapPin, Navigation, Train, ArrowRight, Clock, ChevronLeft, Loader2, AlertCircle, Users, Shield, Phone } from "lucide-react";
 import Header from "@/components/Header";
 import TrainPositionStrip from "@/components/TrainPositionStrip";
 import CrowdIndicator from "@/components/CrowdIndicator";
