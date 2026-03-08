@@ -9,6 +9,7 @@ const navItems = [
   { label: "Live Status", path: "/live", icon: Train },
   { label: "Tickets", path: "/tickets", icon: Ticket },
   { label: "Routes", path: "/routes", icon: Map },
+  { label: "Schedule", path: "/schedule", icon: CalendarClock },
   { label: "SOS", path: "/sos", icon: AlertTriangle },
   { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
 ];
