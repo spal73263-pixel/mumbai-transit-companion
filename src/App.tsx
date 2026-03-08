@@ -14,6 +14,7 @@ import ScanQR from "./pages/ScanQR";
 import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
 import SOS from "./pages/SOS";
+import TrainSchedule from "./pages/TrainSchedule";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
