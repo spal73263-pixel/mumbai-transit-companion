@@ -1,5 +1,6 @@
 import { Train, Clock, Users } from "lucide-react";
 import CrowdIndicator from "./CrowdIndicator";
+import TrainPositionStrip from "./TrainPositionStrip";
 import { cn } from "@/lib/utils";
 
 type CrowdLevel = "low" | "medium" | "high";
