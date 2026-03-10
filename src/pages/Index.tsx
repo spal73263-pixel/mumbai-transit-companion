@@ -35,6 +35,7 @@ const Index = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
     supabase
       .from("services")
       .select(`
