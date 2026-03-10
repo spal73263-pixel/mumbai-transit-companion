@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Train, Ticket, Map, BarChart3, QrCode, Shield, ArrowRight, Users, Clock, Zap } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import heroImage from "@/assets/hero-mumbai.jpg";
 import Header from "@/components/Header";
 import TrainCard from "@/components/TrainCard";
