@@ -66,6 +66,98 @@ const Index = () => {
           <img src={heroImage} alt="Mumbai Railway Network" className="w-full h-full object-cover" />
           <div className="absolute inset-0 gradient-hero opacity-85" />
         </div>
+
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Moving trains */}
+          <motion.div
+            className="absolute bottom-16 flex items-center gap-1"
+            initial={{ x: "-200px" }}
+            animate={{ x: "calc(100vw + 200px)" }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          >
+            <div className="w-28 h-6 bg-accent/20 backdrop-blur-sm rounded-sm border border-accent/10 flex items-center justify-center">
+              <Train className="h-3 w-3 text-accent/40" />
+            </div>
+            <div className="w-20 h-5 bg-accent/15 backdrop-blur-sm rounded-sm border border-accent/10" />
+            <div className="w-20 h-5 bg-accent/15 backdrop-blur-sm rounded-sm border border-accent/10" />
+            <div className="w-20 h-5 bg-accent/15 backdrop-blur-sm rounded-sm border border-accent/10" />
+          </motion.div>
+
+          <motion.div
+            className="absolute bottom-28 flex items-center gap-1"
+            initial={{ x: "calc(100vw + 300px)" }}
+            animate={{ x: "-300px" }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear", delay: 3 }}
+          >
+            <div className="w-24 h-5 bg-primary-foreground/10 backdrop-blur-sm rounded-sm border border-primary-foreground/10 flex items-center justify-center">
+              <Train className="h-3 w-3 text-primary-foreground/30" />
+            </div>
+            <div className="w-16 h-4 bg-primary-foreground/8 backdrop-blur-sm rounded-sm border border-primary-foreground/10" />
+            <div className="w-16 h-4 bg-primary-foreground/8 backdrop-blur-sm rounded-sm border border-primary-foreground/10" />
+            <div className="w-16 h-4 bg-primary-foreground/8 backdrop-blur-sm rounded-sm border border-primary-foreground/10" />
+          </motion.div>
+
+          {/* Walking people silhouettes */}
+          {[0, 1, 2, 3, 4].map((i) => (
+            <motion.div
+              key={`person-r-${i}`}
+              className="absolute bottom-8"
+              initial={{ x: `${-20 + i * 30}px` }}
+              animate={{ x: `calc(100vw + 50px)` }}
+              transition={{ duration: 18 + i * 3, repeat: Infinity, ease: "linear", delay: i * 2.5 }}
+            >
+              <div className="flex flex-col items-center opacity-20">
+                <div className="w-2 h-2 rounded-full bg-primary-foreground" />
+                <div className="w-1.5 h-4 bg-primary-foreground rounded-sm mt-0.5" />
+                <div className="flex gap-0.5 -mt-0.5">
+                  <motion.div
+                    className="w-0.5 h-3 bg-primary-foreground rounded-sm origin-top"
+                    animate={{ rotate: [10, -10, 10] }}
+                    transition={{ duration: 0.6, repeat: Infinity }}
+                  />
+                  <motion.div
+                    className="w-0.5 h-3 bg-primary-foreground rounded-sm origin-top"
+                    animate={{ rotate: [-10, 10, -10] }}
+                    transition={{ duration: 0.6, repeat: Infinity }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={`person-l-${i}`}
+              className="absolute bottom-10"
+              initial={{ x: `calc(100vw + ${i * 40}px)` }}
+              animate={{ x: "-50px" }}
+              transition={{ duration: 22 + i * 4, repeat: Infinity, ease: "linear", delay: i * 4 }}
+            >
+              <div className="flex flex-col items-center opacity-15">
+                <div className="w-2.5 h-2.5 rounded-full bg-accent" />
+                <div className="w-2 h-5 bg-accent rounded-sm mt-0.5" />
+                <div className="flex gap-0.5 -mt-0.5">
+                  <motion.div
+                    className="w-0.5 h-3.5 bg-accent rounded-sm origin-top"
+                    animate={{ rotate: [-12, 12, -12] }}
+                    transition={{ duration: 0.7, repeat: Infinity }}
+                  />
+                  <motion.div
+                    className="w-0.5 h-3.5 bg-accent rounded-sm origin-top"
+                    animate={{ rotate: [12, -12, 12] }}
+                    transition={{ duration: 0.7, repeat: Infinity }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+
+          {/* Track lines */}
+          <div className="absolute bottom-[60px] left-0 right-0 h-px bg-primary-foreground/10" />
+          <div className="absolute bottom-[108px] left-0 right-0 h-px bg-primary-foreground/10" />
+        </div>
+
         <div className="relative container py-24 md:py-36">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
