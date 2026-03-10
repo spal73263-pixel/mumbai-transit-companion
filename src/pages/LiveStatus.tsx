@@ -12,6 +12,8 @@ import { useToast } from "@/hooks/use-toast";
 import { calculateFare } from "@/lib/fareCalculator";
 import { motion, AnimatePresence } from "framer-motion";
 import type { TrainData } from "@/lib/mockData";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const filters = ["All", "Suburban", "Metro", "Low Crowd", "Medium", "High"];
 
