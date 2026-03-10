@@ -8,6 +8,8 @@ import RouteGeoMap from "@/components/RouteGeoMap";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 interface Segment {
   from: string;
