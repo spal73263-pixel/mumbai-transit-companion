@@ -316,9 +316,11 @@ const Routes = () => {
     level === "high" ? "text-crowd-high" : level === "medium" ? "text-crowd-medium" : "text-crowd-low";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground theme="routes" />
       <Header />
-      <main className="container py-8 max-w-4xl">
+      <PageTransition>
+      <main className="container py-8 max-w-4xl relative z-10">
         <div className="mb-8">
           <h1 className="font-display text-3xl font-bold text-foreground">Smart Route Finder</h1>
           <p className="text-muted-foreground mt-1">Find the fastest, least crowded route — with live crowd data</p>
