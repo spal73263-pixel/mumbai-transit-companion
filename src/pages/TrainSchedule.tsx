@@ -678,6 +678,7 @@ const TrainSchedule = () => {
           )}
         </AnimatePresence>
       </main>
+      </PageTransition>
     </div>
   );
 };
