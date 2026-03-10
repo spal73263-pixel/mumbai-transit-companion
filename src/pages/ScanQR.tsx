@@ -1,5 +1,7 @@
 import { QrCode, Camera } from "lucide-react";
 import Header from "@/components/Header";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const ScanQR = () => {
   return (
