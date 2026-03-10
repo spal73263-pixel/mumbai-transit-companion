@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Train, Ticket, Map, BarChart3, QrCode, Shield, ArrowRight, Users, Clock, Zap } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import heroImage from "@/assets/hero-mumbai.jpg";
 import Header from "@/components/Header";
 import TrainCard from "@/components/TrainCard";
@@ -26,6 +26,14 @@ const stats = [
 
 const Index = () => {
   const [liveTrains, setLiveTrains] = useState<TrainData[]>([]);
+  const [scrollY, setScrollY] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     supabase
@@ -61,8 +69,11 @@ const Index = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
+      <section ref={heroRef} className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 will-change-transform"
+          style={{ transform: `translateY(${scrollY * 0.4}px) scale(1.1)` }}
+        >
           <img src={heroImage} alt="Mumbai Railway Network" className="w-full h-full object-cover" />
           <div className="absolute inset-0 gradient-hero opacity-85" />
         </div>
