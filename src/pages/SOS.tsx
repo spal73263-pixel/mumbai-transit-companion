@@ -3,6 +3,8 @@ import { Phone, Shield, Ambulance, AlertTriangle, MapPin, Search, ChevronDown, C
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import { cn } from "@/lib/utils";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 interface StationEmergency {
   station: string;
