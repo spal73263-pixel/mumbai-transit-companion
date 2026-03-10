@@ -56,6 +56,7 @@ const ScanQR = () => {
           </div>
         </div>
       </main>
+      </PageTransition>
     </div>
   );
 };

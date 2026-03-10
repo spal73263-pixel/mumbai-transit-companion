@@ -6,6 +6,8 @@ import CrowdIndicator from "@/components/CrowdIndicator";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const LINE_ROUTES: Record<string, { stations: string[]; color: string; icon: string }> = {
   Western: {
