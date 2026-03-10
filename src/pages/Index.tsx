@@ -26,8 +26,15 @@ const stats = [
 
 const Index = () => {
   const [liveTrains, setLiveTrains] = useState<TrainData[]>([]);
+  const [scrollY, setScrollY] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
     supabase
       .from("services")
       .select(`
