@@ -309,6 +309,7 @@ const LiveStatus = () => {
           </div>
         )}
       </main>
+      </PageTransition>
     </div>
   );
 };

@@ -121,9 +121,11 @@ const SOS = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground theme="sos" />
       <Header />
-      <main className="container py-6 space-y-6">
+      <PageTransition>
+      <main className="container py-6 space-y-6 relative z-10">
         {/* Hero */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}

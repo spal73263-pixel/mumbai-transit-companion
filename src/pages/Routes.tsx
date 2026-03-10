@@ -427,8 +427,8 @@ const Routes = () => {
           </div>
         )}
       </main>
+      </PageTransition>
     </div>
-  );
 };
 
 export default Routes;

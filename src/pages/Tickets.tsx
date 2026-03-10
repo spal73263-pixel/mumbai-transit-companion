@@ -312,6 +312,7 @@ const Tickets = () => {
           )}
         </AnimatePresence>
       </main>
+      </PageTransition>
     </div>
   );
 };
