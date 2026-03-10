@@ -69,8 +69,11 @@ const Index = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
+      <section ref={heroRef} className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 will-change-transform"
+          style={{ transform: `translateY(${scrollY * 0.4}px) scale(1.1)` }}
+        >
           <img src={heroImage} alt="Mumbai Railway Network" className="w-full h-full object-cover" />
           <div className="absolute inset-0 gradient-hero opacity-85" />
         </div>
