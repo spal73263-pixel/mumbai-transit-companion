@@ -430,5 +430,6 @@ const Routes = () => {
       </PageTransition>
     </div>
   );
+};
 
 export default Routes;
