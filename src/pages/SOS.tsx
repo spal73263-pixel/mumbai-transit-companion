@@ -3,6 +3,8 @@ import { Phone, Shield, Ambulance, AlertTriangle, MapPin, Search, ChevronDown, C
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import { cn } from "@/lib/utils";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 interface StationEmergency {
   station: string;
@@ -119,9 +121,11 @@ const SOS = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground theme="sos" />
       <Header />
-      <main className="container py-6 space-y-6">
+      <PageTransition>
+      <main className="container py-6 space-y-6 relative z-10">
         {/* Hero */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -264,6 +268,7 @@ const SOS = () => {
           </div>
         </section>
       </main>
+      </PageTransition>
     </div>
   );
 };

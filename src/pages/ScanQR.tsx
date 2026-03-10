@@ -1,11 +1,15 @@
 import { QrCode, Camera } from "lucide-react";
 import Header from "@/components/Header";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const ScanQR = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground theme="scanner" />
       <Header />
-      <main className="container py-8 max-w-lg">
+      <PageTransition>
+      <main className="container py-8 max-w-lg relative z-10">
         <div className="text-center mb-8">
           <h1 className="font-display text-3xl font-bold text-foreground">Scan QR Ticket</h1>
           <p className="text-muted-foreground mt-1">Validate your ticket before boarding</p>
@@ -52,6 +56,7 @@ const ScanQR = () => {
           </div>
         </div>
       </main>
+      </PageTransition>
     </div>
   );
 };

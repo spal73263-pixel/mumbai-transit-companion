@@ -8,6 +8,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { calculateFare } from "@/lib/fareCalculator";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 type TrainClass = "2nd" | "1st";
 type JourneyType = "single" | "return" | "pass";
@@ -108,9 +110,11 @@ const Tickets = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground theme="tickets" />
       <Header />
-      <main className="container py-8 max-w-4xl">
+      <PageTransition>
+      <main className="container py-8 max-w-4xl relative z-10">
         <div className="mb-8">
           <h1 className="font-display text-3xl font-bold text-foreground">Digital Tickets</h1>
           <p className="text-muted-foreground mt-1">Distance-based fares · Mumbai Suburban & Metro</p>
@@ -308,6 +312,7 @@ const Tickets = () => {
           )}
         </AnimatePresence>
       </main>
+      </PageTransition>
     </div>
   );
 };

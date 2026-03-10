@@ -6,6 +6,8 @@ import CrowdIndicator from "@/components/CrowdIndicator";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const LINE_ROUTES: Record<string, { stations: string[]; color: string; icon: string }> = {
   Western: {
@@ -295,9 +297,11 @@ const TrainSchedule = () => {
   const availableDests = lineStations.filter((s) => s !== sourceStation);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground theme="schedule" />
       <Header />
-      <main className="container py-6 max-w-lg mx-auto">
+      <PageTransition>
+      <main className="container py-6 max-w-lg mx-auto relative z-10">
         {/* Back button */}
         {step !== "line" && (
           <button
@@ -674,6 +678,7 @@ const TrainSchedule = () => {
           )}
         </AnimatePresence>
       </main>
+      </PageTransition>
     </div>
   );
 };

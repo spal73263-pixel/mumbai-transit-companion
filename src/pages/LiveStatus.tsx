@@ -12,6 +12,8 @@ import { useToast } from "@/hooks/use-toast";
 import { calculateFare } from "@/lib/fareCalculator";
 import { motion, AnimatePresence } from "framer-motion";
 import type { TrainData } from "@/lib/mockData";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const filters = ["All", "Suburban", "Metro", "Low Crowd", "Medium", "High"];
 
@@ -143,9 +145,11 @@ const LiveStatus = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground theme="trains" />
       <Header />
-      <main className="container py-8">
+      <PageTransition>
+      <main className="container py-8 relative z-10">
         <div className="mb-8 flex items-start justify-between">
           <div>
             <h1 className="font-display text-3xl font-bold text-foreground">Live Train Status</h1>
@@ -305,6 +309,7 @@ const LiveStatus = () => {
           </div>
         )}
       </main>
+      </PageTransition>
     </div>
   );
 };
