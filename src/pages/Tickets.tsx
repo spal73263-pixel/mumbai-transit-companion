@@ -8,6 +8,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { calculateFare } from "@/lib/fareCalculator";
+import PageTransition from "@/components/PageTransition";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 type TrainClass = "2nd" | "1st";
 type JourneyType = "single" | "return" | "pass";
