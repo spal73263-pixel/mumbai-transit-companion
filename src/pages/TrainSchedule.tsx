@@ -297,9 +297,11 @@ const TrainSchedule = () => {
   const availableDests = lineStations.filter((s) => s !== sourceStation);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground theme="schedule" />
       <Header />
-      <main className="container py-6 max-w-lg mx-auto">
+      <PageTransition>
+      <main className="container py-6 max-w-lg mx-auto relative z-10">
         {/* Back button */}
         {step !== "line" && (
           <button
