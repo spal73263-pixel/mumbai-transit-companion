@@ -268,6 +268,7 @@ const SOS = () => {
           </div>
         </section>
       </main>
+      </PageTransition>
     </div>
   );
 };
