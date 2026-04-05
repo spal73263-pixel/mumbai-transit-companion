@@ -1,17 +1,26 @@
 # Mumbai Transit Companion
 
-The Mumbai Transit Companion project is aimed at providing users with relevant information to navigate the city efficiently using public transportation.
+Welcome to the Mumbai Transit Companion project. This application helps users navigate Mumbai's public transportation system efficiently.
 
 ## Features
-- Timely updates on public transportation schedules.
-- User-friendly interface for easy navigation.
-- Tips and tricks for commuting in Mumbai. 
+- Real-time transit updates
+- Route planning and navigation
+- User-friendly interface
 
 ## Installation
-Clone the repository and follow the instructions in the setup guide to get started.
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
 
-## Contributing
-We welcome contributions from the community! Please refer to the CONTRIBUTING.md file for guidelines on how to contribute to the project.
+## Technology Stack
+- Vite
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn-ui
+
+## Deployment
+To deploy this project, build the application using `npm run build` and deploy the generated files to your hosting platform.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+MIT License
