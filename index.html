@@ -12,7 +12,24 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Mumbai Transit Companion">
     <meta name="twitter:description" content="Navigate Mumbai's public transportation with ease">
+
+    <!-- ✅ INSERT CODE HERE -->
+    <style>
+      /* Hide Lovable badge */
+      a[href*="lovable"],
+      iframe[src*="lovable"] {
+          display: none !important;
+      }
+
+      /* Extra safety */
+      [class*="lovable"],
+      [id*="lovable"] {
+          display: none !important;
+      }
+    </style>
+
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
